@@ -8,9 +8,7 @@ function isMatch(registration, event) {
 
     if (Array.isArray(value)) {
       return value.some((v) => {
-        if (typeof v == "string" || v instanceof String) {
-          return event[prop] === v;
-        }
+        return event[prop] === v;
       });
     }
   }
