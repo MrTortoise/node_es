@@ -8,16 +8,31 @@ describe("readmodels want to specify what events they recievee", () => {
       result = e;
     };
     const withRegistration = registerForEvent(router, "BasketCreated", toCall);
-    handleEvent(withRegistration, {eventType: 'BasketCreated'})
+    routeEvent(withRegistration, {eventType: 'BasketCreated'})
 
-    expect("BasketCreated").toEqual("BasketCreated");
+    expect(result.eventType).toEqual("BasketCreated");
   });
+
+
+  it('registers for  events and gets both events', ()=>{
+    let router = {};
+    let result = [];
+    const toCall = (e) => {
+      result.push(e.eventType);
+    };
+    router = registerForEvent(router, "BasketCreated", toCall);
+    router = registerForEvent(router, "ItemAddedToBasket", toCall);
+    routeEvent(router, {eventType: 'BasketCreated'})
+    routeEvent(router, {eventType: 'ItemAddedToBasket'})
+
+    expect(result).toEqual(["BasketCreated", "ItemAddedToBasket"]);
+  })
 });
 
 function registerForEvent(router, eventType, toCall) {
   return { ...router, [eventType]: toCall };
 }
 
-function handleEvent(router, event){
+function routeEvent(router, event){
     router[event.eventType](event)
 }
