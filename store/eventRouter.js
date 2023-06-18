@@ -15,12 +15,18 @@ function isMatch(registration, event) {
   return true;
 }
 
-export function registerForEvent(router, name, matcher, toCall) {
-  return { ...router, [name]: { matcher, toCall } };
-}
+export class EventRouter{
+    constructor(){
+        this.subscrptions = {}
+    }
 
-export function routeEvent(router, event) {
-  const names = Object.keys(router);
-  const matchedNames = names.filter((n) => isMatch(router[n], event));
-  matchedNames.forEach((n) => router[n].toCall(event));
+    registerForEvent(name, matcher, toCall){
+        this.subscrptions = {...this.subscrptions,[name]: { matcher, toCall } }
+    }
+
+   async routeEvent(event){
+        const names = Object.keys(this.subscrptions);
+        const matchedNames = names.filter((n) => isMatch(this.subscrptions[n], event));
+        matchedNames.forEach(async (n) => await this.subscrptions[n].toCall(event));
+    }
 }

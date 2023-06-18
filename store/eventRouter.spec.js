@@ -1,64 +1,63 @@
-import {routeEvent, registerForEvent} from "./eventRouter"
+import { routeEvent, registerForEvent, EventRouter } from "./eventRouter";
 
 describe("readmodels want to specify what events they recievee", () => {
-  it("registers for event type 'BasketCreated' and gets the event", () => {
-    let router = {};
+  it("registers for event type 'BasketCreated' and gets the event", async () => {
+    const router = new EventRouter();
     let result;
     const toCall = (e) => {
       result = e;
     };
-    const withRegistration = registerForEvent(
-      router,
+
+    router.registerForEvent(
       "TotalBasketReadmodel",
       { eventType: "BasketCreated" },
       toCall
     );
-    routeEvent(withRegistration, { eventType: "BasketCreated" });
+    await router.routeEvent({ eventType: "BasketCreated" });
 
     expect(result.eventType).toEqual("BasketCreated");
   });
 
-  it("registers for  events and gets both events", () => {
-    let router = {};
+  it("registers for  events and gets both events", async () => {
+    let router = new EventRouter();
     let result = [];
     const toCall = (e) => {
       result.push(e.eventType);
     };
-    router = registerForEvent(
-      router,
+
+    router.registerForEvent(
       "TotalBasketReadmodel",
       { eventType: ["BasketCreated", "ItemAddedToBasket"] },
       toCall
     );
 
-    routeEvent(router, { eventType: "BasketCreated" });
-    routeEvent(router, { eventType: "ItemAddedToBasket" });
+    await router.routeEvent({ eventType: "BasketCreated" });
+    await router.routeEvent({ eventType: "ItemAddedToBasket" });
 
     expect(result).toEqual(["BasketCreated", "ItemAddedToBasket"]);
   });
 
-  it("registers for  events and gets both events and not others", () => {
-    let router = {};
+  it("registers for  events and gets both events and not others", async () => {
+    let router = new EventRouter();
     let result = [];
     const toCall = (e) => {
       result.push(e.eventType);
     };
-    router = registerForEvent(
-      router,
+    router.registerForEvent(
       "TotalBasketReadmodel",
       { eventType: ["BasketCreated", "ItemAddedToBasket"] },
       toCall
     );
 
-    routeEvent(router, { eventType: "BasketCreated" });
-    routeEvent(router, { eventType: "ItemAddedToBasket" });
-    routeEvent(router, { eventType: "Dave" });
+    await router.routeEvent({ eventType: "BasketCreated" });
+    await router.routeEvent({ eventType: "ItemAddedToBasket" });
+    await router.routeEvent({ eventType: "Dave" });
 
     expect(result).toEqual(["BasketCreated", "ItemAddedToBasket"]);
   });
 
-  it("2 registrations, one sends event one way and the other another", () => {
-    let router = {};
+  it("2 registrations, one sends event one way and the other another", async () => {
+    let router = new EventRouter();
     let result1, result2;
 
     const toCall = (e) => {
@@ -69,41 +68,36 @@ describe("readmodels want to specify what events they recievee", () => {
       result2 = e;
     };
 
-    router = registerForEvent(
-      router,
+    router.registerForEvent(
       "TotalBasketReadmodel",
       { eventType: "BasketCreated" },
       toCall
     );
-    router = registerForEvent(
-      router,
+    router.registerForEvent(
       "TotalBasketReadmodel2",
       { eventType: "BasketCreated" },
       toCall2
     );
     const inputEvent = { eventType: "BasketCreated" };
-    routeEvent(router, inputEvent);
+    await router.routeEvent(inputEvent);
     expect(result1).toEqual(result2);
     expect(result1).toEqual(inputEvent);
   });
 
-  it("1 registrationfor 1 event, send 2 events ensure only 1 recieved", () => {
-    let router = {};
+  it("1 registrationfor 1 event, send 2 events ensure only 1 recieved", async () => {
+    let router = new EventRouter();
     let result = [];
     const toCall = (e) => {
       result.push(e);
     };
-    const withRegistration = registerForEvent(
-      router,
+    router.registerForEvent(
       "TotalBasketReadmodel",
       { eventType: "BasketCreated" },
       toCall
     );
-    routeEvent(withRegistration, { eventType: "BasketCreated" });
-    routeEvent(withRegistration, { eventType: "Dave" });
+    await router.routeEvent({ eventType: "BasketCreated" });
+    await router.routeEvent({ eventType: "Dave" });
 
     expect(result).toEqual([{ eventType: "BasketCreated" }]);
   });
 });
-
-
