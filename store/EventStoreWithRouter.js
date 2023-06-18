@@ -4,12 +4,12 @@ export class EventStoreWithRouter {
         this.router = router;
     }
 
-    async writeToStream(streamName, currentPosition, event) {
-        await this.eventStore.writeToStream(streamName, currentPosition, event);
+    async writeToStream(streamId, currentPosition, event) {
+        await this.eventStore.writeToStream(streamId, currentPosition, event);
         this.router.routeEvent(event);
     }
 
-    async readStream(streamName) {
-        return await this.eventStore.readStream(streamName);
+    async readStream(streamId) {
+        return await this.eventStore.readStream(streamId);
     }
 }

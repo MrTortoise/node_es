@@ -3,8 +3,8 @@ export class EventStore {
     this.store = store;
   }
 
-  async writeToStream(streamName, currentPosition, event) {
-    let stream = await this.store.readStream(streamName);
+  async writeToStream(streamId, currentPosition, event) {
+    let stream = await this.store.readStream(streamId);
     if (stream == undefined) {
       stream = { events: [], currentPosition: -1 };
     }
@@ -12,10 +12,10 @@ export class EventStore {
     if (stream.currentPosition != currentPosition)
       throw new Error("incorrect stream position");
 
-    await this.store.writeToStream(streamName, event);
+    await this.store.writeToStream(streamId, event);
   }
 
-  async readStream(streamName){
-    return await this.store.readStream(streamName)
+  async readStream(streamId){
+    return await this.store.readStream(streamId)
   }
 }
