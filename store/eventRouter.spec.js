@@ -81,10 +81,10 @@ describe("readmodels want to specify what events they recievee", () => {
       { eventType: "BasketCreated" },
       toCall2
     );
-    const e = { eventType: "BasketCreated" };
-    routeEvent(router, e);
+    const inputEvent = { eventType: "BasketCreated" };
+    routeEvent(router, inputEvent);
     expect(result1).toEqual(result2);
-    expect(result1).toEqual(e);
+    expect(result1).toEqual(inputEvent);
   });
 
   it("1 registrationfor 1 event, send 2 events ensure only 1 recieved", () => {
