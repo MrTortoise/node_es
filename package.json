@@ -5,7 +5,8 @@
     "test": "jest"
   },
   "dependencies": {
-    "@yarnpkg/sdks": "^3.0.0-rc.45"
+    "@yarnpkg/sdks": "^3.0.0-rc.45",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@swc/cli": "^0.1.62",

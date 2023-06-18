@@ -36,7 +36,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-config-prettier", "virtual:beb3b4823e4a90bb3c329d093de0d1ed5314fc561851588d8ff53612148a4f5bc7cd236f8463b68b4a73602e197461e49927e35c089b4817b31dec36ac6b93df#npm:8.8.0"],\
             ["eslint-plugin-jest", "virtual:beb3b4823e4a90bb3c329d093de0d1ed5314fc561851588d8ff53612148a4f5bc7cd236f8463b68b4a73602e197461e49927e35c089b4817b31dec36ac6b93df#npm:27.2.1"],\
             ["jest", "virtual:beb3b4823e4a90bb3c329d093de0d1ed5314fc561851588d8ff53612148a4f5bc7cd236f8463b68b4a73602e197461e49927e35c089b4817b31dec36ac6b93df#npm:29.5.0"],\
-            ["prettier", "npm:2.8.8"]\
+            ["prettier", "npm:2.8.8"],\
+            ["uuid", "npm:9.0.0"]\
           ],\
           "linkType": "SOFT"\
         }]\
@@ -3048,7 +3049,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-config-prettier", "virtual:beb3b4823e4a90bb3c329d093de0d1ed5314fc561851588d8ff53612148a4f5bc7cd236f8463b68b4a73602e197461e49927e35c089b4817b31dec36ac6b93df#npm:8.8.0"],\
             ["eslint-plugin-jest", "virtual:beb3b4823e4a90bb3c329d093de0d1ed5314fc561851588d8ff53612148a4f5bc7cd236f8463b68b4a73602e197461e49927e35c089b4817b31dec36ac6b93df#npm:27.2.1"],\
             ["jest", "virtual:beb3b4823e4a90bb3c329d093de0d1ed5314fc561851588d8ff53612148a4f5bc7cd236f8463b68b4a73602e197461e49927e35c089b4817b31dec36ac6b93df#npm:29.5.0"],\
-            ["prettier", "npm:2.8.8"]\
+            ["prettier", "npm:2.8.8"],\
+            ["uuid", "npm:9.0.0"]\
           ],\
           "linkType": "SOFT"\
         }]\
@@ -6411,6 +6413,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/util-deprecate-npm-1.0.2-e3fe1a219c-474acf1146.zip/node_modules/util-deprecate/",\
           "packageDependencies": [\
             ["util-deprecate", "npm:1.0.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["uuid", [\
+        ["npm:9.0.0", {\
+          "packageLocation": "./.yarn/cache/uuid-npm-9.0.0-46c41e3e43-8dd2c83c43.zip/node_modules/uuid/",\
+          "packageDependencies": [\
+            ["uuid", "npm:9.0.0"]\
           ],\
           "linkType": "HARD"\
         }]\
