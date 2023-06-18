@@ -37,7 +37,7 @@ describe("readmodels want to specify what events they recievee", () => {
     expect(result).toEqual(["BasketCreated", "ItemAddedToBasket"]);
   });
 
-  it("registers for  events and gets both events and not others", async () => {
+  it("registers for  events and gets both events and not others", () => {
     let router = new EventRouter();
     let result = [];
     const toCall = (e) => {
@@ -49,9 +49,9 @@ describe("readmodels want to specify what events they recievee", () => {
       toCall
     );
 
-    await router.routeEvent({ eventType: "BasketCreated" });
-    await router.routeEvent({ eventType: "ItemAddedToBasket" });
-    await router.routeEvent({ eventType: "Dave" });
+    router.routeEvent({ eventType: "BasketCreated" });
+    router.routeEvent({ eventType: "ItemAddedToBasket" });
+    router.routeEvent({ eventType: "Dave" });
 
     expect(result).toEqual(["BasketCreated", "ItemAddedToBasket"]);
   });

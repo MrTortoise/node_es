@@ -1,5 +1,10 @@
-function isMatch(registration, event) {
-  const matcher = registration.matcher;
+import { EventEmitter } from "node:events";
+
+function isMatch(matcher, event) {
+  if(matcher == undefined) {
+    return false
+  }
+
   for (var prop in matcher) {
     const value = matcher[prop];
     if (typeof value == "string" || value instanceof String) {
@@ -15,18 +20,23 @@ function isMatch(registration, event) {
   return true;
 }
 
-export class EventRouter{
-    constructor(){
-        this.subscrptions = {}
-    }
+export class EventRouter {
+  constructor() {
+    this.subscrptions = {};
+    this.emitter = new EventEmitter();
+  }
 
-    registerForEvent(name, matcher, toCall){
-        this.subscrptions = {...this.subscrptions,[name]: { matcher, toCall } }
-    }
+  registerForEvent(name, matcher, toCall) {
+    this.subscrptions = { ...this.subscrptions, [name]: matcher };
+    this.emitter.on(name, toCall);
+  }
 
-   async routeEvent(event){
-        const names = Object.keys(this.subscrptions);
-        const matchedNames = names.filter((n) => isMatch(this.subscrptions[n], event));
-        matchedNames.forEach(async (n) => await this.subscrptions[n].toCall(event));
-    }
+  routeEvent(event) {
+    const names = Object.keys(this.subscrptions);
+    const matchedNames = names.filter((n) =>
+      isMatch(this.subscrptions[n], event)
+    );
+    //console.log({matchedNames, emitter: this.emitter, event})
+    matchedNames.forEach((n) => this.emitter.emit(n, event));
+  }
 }
