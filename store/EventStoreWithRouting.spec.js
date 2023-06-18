@@ -5,10 +5,11 @@ import { EventRouter } from "./eventRouter";
 
 describe("eventstore with routing will write events and route them to appropiate projections", () => {
   let eventStore;
+  let router;
   beforeEach(() => {
     const store = new InMemoryStore();
     const es = new EventStore(store);
-    const router = new EventRouter();
+    router = new EventRouter();
     eventStore = new EventStoreWithRouter(es, router);
   });
 
@@ -28,9 +29,18 @@ describe("eventstore with routing will write events and route them to appropiate
     }
   });
 
-  it("will forward the event to any matching handlers / projections", () => {
+  it("will forward the event to any matching handlers / projections", async () => {
+    let result;
+    const toCall = (e) => {
+      result = e;
+    };
 
+    router.registerForEvent("test", { eventType: "created" }, toCall);
+    await eventStore.writeToStream("doesntMatter", -1, {
+      eventType: "created",
+      data: "dave",
+    });
 
-    expect(1).toEqual(1);
+    expect(result.data).toEqual("dave");
   });
 });
