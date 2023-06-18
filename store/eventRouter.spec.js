@@ -1,7 +1,7 @@
 import { routeEvent, registerForEvent, EventRouter } from "./eventRouter";
 
 describe("readmodels want to specify what events they recievee", () => {
-  it("registers for event type 'BasketCreated' and gets the event", async () => {
+  it("registers for event type 'BasketCreated' and gets the event", () => {
     const router = new EventRouter();
     let result;
     const toCall = (e) => {
@@ -13,12 +13,12 @@ describe("readmodels want to specify what events they recievee", () => {
       { eventType: "BasketCreated" },
       toCall
     );
-    await router.routeEvent({ eventType: "BasketCreated" });
+    router.routeEvent({ eventType: "BasketCreated" });
 
     expect(result.eventType).toEqual("BasketCreated");
   });
 
-  it("registers for  events and gets both events", async () => {
+  it("registers for  events and gets both events", () => {
     let router = new EventRouter();
     let result = [];
     const toCall = (e) => {
@@ -31,8 +31,8 @@ describe("readmodels want to specify what events they recievee", () => {
       toCall
     );
 
-    await router.routeEvent({ eventType: "BasketCreated" });
-    await router.routeEvent({ eventType: "ItemAddedToBasket" });
+    router.routeEvent({ eventType: "BasketCreated" });
+    router.routeEvent({ eventType: "ItemAddedToBasket" });
 
     expect(result).toEqual(["BasketCreated", "ItemAddedToBasket"]);
   });
@@ -56,7 +56,7 @@ describe("readmodels want to specify what events they recievee", () => {
     expect(result).toEqual(["BasketCreated", "ItemAddedToBasket"]);
   });
 
-  it("2 registrations, one sends event one way and the other another", async () => {
+  it("2 registrations, one sends event one way and the other another", () => {
     let router = new EventRouter();
     let result1, result2;
 
@@ -79,12 +79,12 @@ describe("readmodels want to specify what events they recievee", () => {
       toCall2
     );
     const inputEvent = { eventType: "BasketCreated" };
-    await router.routeEvent(inputEvent);
+    router.routeEvent(inputEvent);
     expect(result1).toEqual(result2);
     expect(result1).toEqual(inputEvent);
   });
 
-  it("1 registrationfor 1 event, send 2 events ensure only 1 recieved", async () => {
+  it("1 registrationfor 1 event, send 2 events ensure only 1 recieved", () => {
     let router = new EventRouter();
     let result = [];
     const toCall = (e) => {
@@ -95,8 +95,8 @@ describe("readmodels want to specify what events they recievee", () => {
       { eventType: "BasketCreated" },
       toCall
     );
-    await router.routeEvent({ eventType: "BasketCreated" });
-    await router.routeEvent({ eventType: "Dave" });
+    router.routeEvent({ eventType: "BasketCreated" });
+    router.routeEvent({ eventType: "Dave" });
 
     expect(result).toEqual([{ eventType: "BasketCreated" }]);
   });
