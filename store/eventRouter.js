@@ -1,8 +1,9 @@
 import { EventEmitter } from "node:events";
 
 function isMatch(matcher, event) {
-  if(matcher == undefined) {
-    return false
+  // whilst this is very standard its intended to be compatible with AWS kinesis
+  if (matcher == undefined) {
+    return false;
   }
 
   for (var prop in matcher) {
