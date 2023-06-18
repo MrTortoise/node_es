@@ -16,7 +16,6 @@ export class EventStore {
   }
 
   async readStream(streamName){
-    return this.store.readStream(streamName)
+    return await this.store.readStream(streamName)
   }
-
 }

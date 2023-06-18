@@ -8,8 +8,6 @@ describe("calculates the lead time of preprocessing ", () => {
     expect(model["1"].completed).toBe(false);
   });
 
-
-
   it("has values of 0 for 2 newly created baskets", () => {
     const createdOn = new Date(2023,6,11)
     const e = {streamName: 'investigation-1', createdOn , eventType: "PreprocessingStarted", data:{investigationId: "1"} };
