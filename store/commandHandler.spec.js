@@ -1,7 +1,7 @@
 const { handleEvent } = require("./preProcessingLeadTimeMetrics");
 import { InMemoryStore } from "./InMemoryStore";
 import { EventStore } from "./EventStore";
-import { v4 as uuidv4 } from "uuid";
+import { generateId } from "./generateId";
 
 describe("a command handler needs to take a command, read a stream then write to it", () => {
   it("will take a command and write an event to stream", async () => {
@@ -14,11 +14,6 @@ describe("a command handler needs to take a command, read a stream then write to
     expect(stream.events[0]).toEqual({ eventType: "personCreated" });
   });
 });
-
-function generateId() {
-  return uuidv4();
-}
-
 
 async function handleCommand(eventStore, command) {}
 
