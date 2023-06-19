@@ -18,7 +18,7 @@ describe("Request worker takes a request, hits some API and produces a complete 
     worker = new RequestCreatedWorker(eventStore);
   });
 
-  it("takes event, hits api and executes command",async  () => {
+  it("takes event, hits api and executes command", async () => {
     const id = '{"type":"createRequest","name":"dave"}';
     const event = {
       eventType: "requestCreated",
@@ -31,9 +31,9 @@ describe("Request worker takes a request, hits some API and produces a complete 
 
     let result;
     const commandHandler = {
-      handle: (c) => 
-      {
-        result = c},
+      handle: (c) => {
+        result = c;
+      },
     };
     const commandRouter = new CommandRouter();
     commandRouter.register("completeRequest", commandHandler);
@@ -52,5 +52,3 @@ describe("Request worker takes a request, hits some API and produces a complete 
     expect(result.commandType).toEqual("completeRequest");
   });
 });
-
-

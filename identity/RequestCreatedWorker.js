@@ -8,7 +8,8 @@ export class RequestCreatedWorker {
     async handle(event) {
         const data = await this.api.get();
         const command = {
-            commandType: 'completeRequest'
+            commandType: 'completeRequest',
+            data
         };
 
         this.commandRouter.handle(command);
