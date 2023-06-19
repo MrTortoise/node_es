@@ -22,6 +22,7 @@ function isMatch(matcher, event) {
 }
 
 export class EventRouter {
+  // think kinesis
   constructor() {
     this.subscrptions = {};
     this.emitter = new EventEmitter();

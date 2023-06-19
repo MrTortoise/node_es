@@ -12,4 +12,8 @@ export class EventStoreWithRouter {
     async readStream(streamId) {
         return await this.eventStore.readStream(streamId);
     }
+
+    registerForEvent(name, matcher, eventHandler) {
+        this.router.registerForEvent(name, matcher, eventHandler)
+    }
 }
