@@ -4,14 +4,16 @@ describe("readmodels want to specify what events they recievee", () => {
   it("registers for event type 'BasketCreated' and gets the event", () => {
     const router = new EventRouter();
     let result;
-    const toCall = (e) => {
-      result = e;
+    const handler = {
+      handle: (e) => {
+        result = e;
+      },
     };
 
     router.registerForEvent(
       "TotalBasketReadmodel",
       { eventType: "BasketCreated" },
-      toCall
+      handler
     );
     router.routeEvent({ eventType: "BasketCreated" });
 
@@ -21,14 +23,16 @@ describe("readmodels want to specify what events they recievee", () => {
   it("registers for  events and gets both events", () => {
     let router = new EventRouter();
     let result = [];
-    const toCall = (e) => {
-      result.push(e.eventType);
+    const handler = {
+      handle: (e) => {
+        result.push(e.eventType);
+      },
     };
 
     router.registerForEvent(
       "TotalBasketReadmodel",
       { eventType: ["BasketCreated", "ItemAddedToBasket"] },
-      toCall
+      handler
     );
 
     router.routeEvent({ eventType: "BasketCreated" });
@@ -40,13 +44,15 @@ describe("readmodels want to specify what events they recievee", () => {
   it("registers for  events and gets both events and not others", () => {
     let router = new EventRouter();
     let result = [];
-    const toCall = (e) => {
-      result.push(e.eventType);
+    const handler = {
+      handle: (e) => {
+        result.push(e.eventType);
+      },
     };
     router.registerForEvent(
       "TotalBasketReadmodel",
       { eventType: ["BasketCreated", "ItemAddedToBasket"] },
-      toCall
+      handler
     );
 
     router.routeEvent({ eventType: "BasketCreated" });
@@ -60,23 +66,27 @@ describe("readmodels want to specify what events they recievee", () => {
     let router = new EventRouter();
     let result1, result2;
 
-    const toCall = (e) => {
-      result1 = e;
+    const handler = {
+      handle: (e) => {
+        result1 = e;
+      },
     };
 
-    const toCall2 = (e) => {
-      result2 = e;
+    const handler2 = {
+      handle: (e) => {
+        result2 = e;
+      },
     };
 
     router.registerForEvent(
       "TotalBasketReadmodel",
       { eventType: "BasketCreated" },
-      toCall
+      handler
     );
     router.registerForEvent(
       "TotalBasketReadmodel2",
       { eventType: "BasketCreated" },
-      toCall2
+      handler2
     );
     const inputEvent = { eventType: "BasketCreated" };
     router.routeEvent(inputEvent);
@@ -87,13 +97,15 @@ describe("readmodels want to specify what events they recievee", () => {
   it("1 registrationfor 1 event, send 2 events ensure only 1 recieved", () => {
     let router = new EventRouter();
     let result = [];
-    const toCall = (e) => {
-      result.push(e);
+    const handler = {
+      handle: (e) => {
+        result.push(e);
+      },
     };
     router.registerForEvent(
       "TotalBasketReadmodel",
       { eventType: "BasketCreated" },
-      toCall
+      handler
     );
     router.routeEvent({ eventType: "BasketCreated" });
     router.routeEvent({ eventType: "Dave" });

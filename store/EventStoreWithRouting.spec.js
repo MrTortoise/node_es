@@ -31,11 +31,11 @@ describe("eventstore with routing will write events and route them to appropiate
 
   it("will forward the event to any matching handlers / projections", async () => {
     let result;
-    const toCall = (e) => {
+    const handler = {handle:(e) => {
       result = e;
-    };
+    }}
 
-    router.registerForEvent("test", { eventType: "created" }, toCall);
+    router.registerForEvent("test", { eventType: "created" }, handler);
     await eventStore.writeToStream("doesntMatter", -1, {
       eventType: "created",
       data: "dave",

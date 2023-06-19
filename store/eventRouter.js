@@ -27,9 +27,9 @@ export class EventRouter {
     this.emitter = new EventEmitter();
   }
 
-  registerForEvent(name, matcher, toCall) {
+  registerForEvent(name, matcher, eventHandler) {
     this.subscrptions = { ...this.subscrptions, [name]: matcher };
-    this.emitter.on(name, toCall);
+    this.emitter.on(name, eventHandler.handle.bind(eventHandler));
   }
 
   routeEvent(event) {

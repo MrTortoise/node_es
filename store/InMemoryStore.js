@@ -1,5 +1,6 @@
 
 export class InMemoryStore {
+  // think dynamo db with an document that stores position and a list of events
   constructor() {
     this.streams = {};
   }
