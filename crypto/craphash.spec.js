@@ -1,3 +1,6 @@
+import { craphash } from "./craphash"
+
+
 describe('crap hash takes an object an returns a consistent hash of it', ()=>{
     it('will return a hash of all the fields in plain text', ()=>{
         const result = craphash({first:'dave',second:'fred'})
@@ -6,6 +9,3 @@ describe('crap hash takes an object an returns a consistent hash of it', ()=>{
 })
 
 
-function craphash(input){
-    return JSON.stringify(input)
-}
